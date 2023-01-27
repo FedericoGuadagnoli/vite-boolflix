@@ -14,8 +14,8 @@ export default {
 </script>
 
 <template>
-    <form @submit.prevent="$emit('form-submit')">
-        <input type="text" v-model.trim="term" class="form-control flex-grow-3" :placeholder="placeholder"
+    <form class="d-flex gap-2" @submit.prevent="$emit('form-submit')">
+        <input type="text" v-model.trim="term" class="form-control w-25" :placeholder="placeholder"
             @keyup="$emit('term-change', term)">
         <button class="btn btn-primary">Cerca</button>
     </form>

@@ -18,6 +18,10 @@ export default {
         flagSrc() {
             const url = new URL(`../../assets/img/${this.item.original_language}.png`, import.meta.url);
             return url.href;
+        },
+        pathSrc() {
+            const urlImage = `https://image.tmdb.org/t/p/w342${this.item.poster_path}`;
+            return urlImage;
         }
     }
 };
@@ -25,6 +29,7 @@ export default {
 
 <template>
     <div class="production-card text-center p-2 text-dark">
+        <img class="img-fluid" :src="pathSrc" :alt="title">
         <h2>{{ title }}</h2>
         <h2>{{ originalTitle }}</h2>
         <div>

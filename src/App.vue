@@ -1,11 +1,12 @@
 <script>
 import axios from 'axios';
 import SearchForm from './components/SearchForm.vue';
+import MovieList from './components/Movie/MovieList.vue';
 import { api } from './data';
 import { store } from './data/store';
 export default {
   name: 'Boolfix',
-  components: { SearchForm },
+  components: { SearchForm, MovieList },
   data() {
     return {
       filterMovie: '',
@@ -31,7 +32,11 @@ export default {
     searchMovies() {
       axios.get(`${api.baseUri}/search/movie`, this.axiosConfig)
         .then((res) => {
-          store.movies = res.data.results
+          const apiMovies = res.data.results;
+          store.movies = apiMovies.map(movie => {
+            const { title, original_title, original_language, vote_average } = movie;
+            return { title, original_title, original_language, vote_average }
+          })
         }).catch((error) => {
           console.error(error)
         });
@@ -43,6 +48,7 @@ export default {
 <template>
   <search-form @term-change="onTermChange" @form-submit="searchMovies"
     placeholder="Scrivi il nome di un film"></search-form>
+  <movie-list></movie-list>
 </template>
 
 <style scoped lang="scss">

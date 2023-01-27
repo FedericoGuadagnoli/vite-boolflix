@@ -6,6 +6,6 @@
 
 </template>
 
-<style>
-
+<style scoped lang="scss">
+@use './assets/scss/style.scss' as *;
 </style>

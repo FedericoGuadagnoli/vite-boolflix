@@ -1,12 +1,12 @@
 <script>
 import axios from 'axios';
 import SearchForm from './components/SearchForm.vue';
-import MovieList from './components/Movie/MovieList.vue';
+import ProductionList from './components/Production/ProductionList.vue';
 import { api } from './data';
 import { store } from './data/store';
 export default {
   name: 'Boolfix',
-  components: { SearchForm, MovieList },
+  components: { SearchForm, ProductionList },
   data() {
     return {
       filterMovie: '',
@@ -29,16 +29,19 @@ export default {
     onTermChange(term) {
       this.filterMovie = term;
     },
-    searchMovies() {
-      axios.get(`${api.baseUri}/search/movie`, this.axiosConfig)
+    searchProduction() {
+      if (!this.filterMovie) {
+        store.movies = [];
+        store.series = [];
+        return;
+      }
+      this.fetchApi('search/movie', 'movies');
+      this.fetchApi('search/tv', 'series');
+    },
+    fetchApi(endpoint, collection) {
+      axios.get(`${api.baseUri}/${endpoint}`, this.axiosConfig)
         .then((res) => {
-          const apiMovies = res.data.results;
-          store.movies = apiMovies.map(movie => {
-            const { title, original_title, original_language, vote_average } = movie;
-            return { title, original_title, original_language, vote_average }
-          })
-        }).catch((error) => {
-          console.error(error)
+          store[collection] = res.data.results;
         });
     }
   }
@@ -46,9 +49,9 @@ export default {
 </script>
 
 <template>
-  <search-form @term-change="onTermChange" @form-submit="searchMovies"
+  <search-form @term-change="onTermChange" @form-submit="searchProduction"
     placeholder="Scrivi il nome di un film"></search-form>
-  <movie-list></movie-list>
+  <ProductionList></ProductionList>
 </template>
 
 <style scoped lang="scss">

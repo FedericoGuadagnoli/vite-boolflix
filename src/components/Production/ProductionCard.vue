@@ -22,6 +22,9 @@ export default {
         pathSrc() {
             const urlImage = `https://image.tmdb.org/t/p/w342${this.item.poster_path}`;
             return urlImage;
+        },
+        halfStars() {
+            return Math.floor(this.item.vote_average / 2);
         }
     }
 };
@@ -36,10 +39,21 @@ export default {
             <img class="img-fluid" v-if="hasFlag" :src="flagSrc" :alt="item.original_language">
             <h3 v-else>{{ item.original_language }}</h3>
         </div>
-        <h3>{{ item.vote_average }}</h3>
+        <div>
+            <font-awesome-icon v-for="star in halfStars" icon="fa-solid fa-star" class="dark"></font-awesome-icon>
+            <font-awesome-icon v-for="star in 5 - halfStars" icon="fa-solid fa-star" class="light"></font-awesome-icon>
+
+        </div>
+
     </div>
 </template>
 
-<style>
+<style scoped lang="scss">
+.light {
+    color: grey;
+}
 
+.dark {
+    color: black;
+}
 </style>

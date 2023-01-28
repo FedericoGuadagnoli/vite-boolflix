@@ -51,6 +51,8 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@use '../../assets/scss/partials/variables.scss' as *;
+
 .production-card {
     position: relative;
     flex-basis: calc(25% - 0.5rem);
@@ -68,7 +70,7 @@ export default {
         right: 0;
         top: 0;
         bottom: 0;
-        background-color: black;
+        background-color: $bg-black;
         overflow-y: auto;
     }
 }
@@ -89,10 +91,10 @@ export default {
 
 
 .light {
-    color: grey;
+    color: $bg-grey;
 }
 
 .red {
-    color: red;
+    color: $c-red;
 }
 </style>

@@ -15,9 +15,9 @@ export default {
 
 <template>
     <form class="d-flex gap-2" @submit.prevent="$emit('form-submit')">
-        <input type="text" v-model.trim="term" class="form-control w-25" :placeholder="placeholder"
+        <input type="text" v-model.trim="term" class="form-control" :placeholder="placeholder"
             @keyup="$emit('term-change', term)">
-        <button class="btn btn-primary">Cerca</button>
+        <button class="btn btn-danger">Cerca</button>
     </form>
 </template>
 
